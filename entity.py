@@ -1,11 +1,14 @@
 
 class Position:
-    x,y = 0, 0
     
+    def __init__(self, x = 0, y = 0):
+        self.x = x
+        self.y = y 
+
     def __add__(self, other):
         p = Position()
-        p.x = other[0] + self.x
-        p.y = other[1] + self.y
+        p.x = other.x + self.x
+        p.y = other.y + self.y
         return
 
 
@@ -22,7 +25,7 @@ class Plateau:
 
 class Piece:
     
-    relative_movement = [(1,3),(3,1),(-1,3)(3,-1),(-1,-3),(-3,-1),(-3,1),(1,-3)]
+    relative_movement = [Position(1,3),Position(3,1),Position(-1,3),Position(3,-1),Position(-1,-3),Position(-3,-1),Position(-3,1),Position(1,-3)]
 
     def __init__(self):
         pass
