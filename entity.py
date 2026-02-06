@@ -11,35 +11,45 @@ class Position:
         p.x = other.x + self.x
         p.y = other.y + self.y
         return
+    
+    def __str__(self):
+        return f"({self.x}, {self.y})"
+    
+    def __repr__(self):
+        return str(self)
 
 
 class Plateau:
     vide = 0
 
-    def __init__(self, x, y):
+    def __init__(self, x, y, piece):
         self.matrice = [[self.vide for j in range(x)] for i in range(y)]
+        self.piece = piece
         
     def affichage(self):
         for ligne in self.matrice:
             print(ligne)
+        self.piece.affichage()
+
+
 
 class Piece:
-    movements = []
+    relative_movements = []
 
     def __init__(self, x, y, mouvements):
-        for pos in constantes.knite:
-            self.movement()
+        for pos in mouvements:
+            self.relative_movements.append(Position(*pos))
         self.position = Position(x, y)
         
 
     def movement(self):
         liste = []
-        for i in self.movements:
+        for i in self.relative_movements:
             liste.append(self.position + i)
         return liste
     
-    def affichage(self):
-        print(self.movements)
+    def affichage(self):    
+        print(self.relative_movements)
         print(self.position)
 
 
@@ -47,7 +57,8 @@ class Piece:
 
 
 def lancement():
-    pl = Plateau(6, 4, constantes.knite)
+    piece = Piece(0,0,constantes.knite)
+    pl = Plateau(6, 4, piece)
     pl.affichage()
 
     pass
