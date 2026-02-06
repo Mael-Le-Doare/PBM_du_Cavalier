@@ -8,6 +8,8 @@ class Sommet:
     estVisite : bool = False
     # degré du graph
     degre : int = 0
+    # boucles du graphe
+    boucle : int =0
 
     def __init__(self, n : str, sA : list) :
         # on assigne le nom et les sommet adjacents passés en parametre
@@ -15,9 +17,7 @@ class Sommet:
         self.sommetAdjacents=sA
 
         # pour chacun des sommets rencontontrés on incrémente le degré du sommet
-        for sommets in self.sommetAdjacents:
-            self.degre +=1
-
+        self.initDegre()
     
     def __str__(self):
         # affichage de notre objet sommet
@@ -32,6 +32,16 @@ class Sommet:
     def initAdjacents(self, dico : dict):
         # methode pour actualiser le dictionnaire des sommets adjacents
         self.sommetAdjacents.update(dico)
+        self.initDegre()
+    
+    def initDegre(self):
+        #initianalise les degre du sommet
+        for sommets in self.sommetAdjacents:
+            self.degre +=1
+    
+    def estIsole(self)->bool:
+        return self.sommetAdjacents=={}
+
 
 
 A=Sommet("A",{})
@@ -43,3 +53,4 @@ C.initAdjacents({A:8,B:5})
 A.afficherAdjacents()
 B.afficherAdjacents()
 C.afficherAdjacents()
+print(A.degre)
