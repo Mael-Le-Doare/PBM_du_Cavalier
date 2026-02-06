@@ -23,11 +23,23 @@ class Sommet:
         # affichage de notre objet sommet
         return f"{self.nom}"
     
-    def afficherAdjacents(self):
-        # affichage des sommets adjacents
-        for sommet in self.sommetAdjacents.keys():
-            print(sommet)
-        
     
+    def afficherAdjacents(self):
+        # affichage des sommets adjacents avec
+        for sommet in self.sommetAdjacents.items():
+            print((sommet)[0],sommet[1])
+    
+    def initAdjacents(self, dico : dict):
+        # methode pour actualiser le dictionnaire des sommets adjacents
+        self.sommetAdjacents.update(dico)
 
 
+A=Sommet("A",{})
+B=Sommet("B",{})
+C=Sommet("C",{})
+A.initAdjacents({B:3,C:8})
+B.initAdjacents({A:3,C:5})
+C.initAdjacents({A:8,B:5})
+A.afficherAdjacents()
+B.afficherAdjacents()
+C.afficherAdjacents()
