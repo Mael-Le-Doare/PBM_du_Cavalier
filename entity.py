@@ -14,7 +14,6 @@ class Position:
 
 class Plateau:
     vide = 0
-    piece = Position()
 
     def __init__(self, x, y):
         self.matrice = [[self.vide for j in range(x)] for i in range(y)]
@@ -25,21 +24,28 @@ class Plateau:
 
 class Piece:
     
-    relative_movement = [Position(1,3),Position(3,1),Position(-1,3),Position(3,-1),Position(-1,-3),Position(-3,-1),Position(-3,1),Position(1,-3)]
+    def __init__(self, x, y, mouvements):
+        self.position = Position(x, y)
+        
 
-    def __init__(self):
-        pass
-
-    def movement(self, position):
+    def movement(self):
         liste = []
         for i in self.relative_movement:
-            liste.append(position + i)
+            liste.append(self.position + i)
         return liste
-
     
-
+    def affichage(self):
+        print(self.relative_movement)
+        print(self.position)
 
 
 
 pl = Plateau(6, 4)
 pl.affichage()
+
+
+
+def lancement():
+    pass
+
+lancement()
