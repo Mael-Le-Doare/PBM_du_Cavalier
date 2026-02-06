@@ -1,3 +1,4 @@
+import constantes
 
 class Position:
     
@@ -23,29 +24,32 @@ class Plateau:
             print(ligne)
 
 class Piece:
-    
+    movements = []
+
     def __init__(self, x, y, mouvements):
+        for pos in constantes.knite:
+            self.movement()
         self.position = Position(x, y)
         
 
     def movement(self):
         liste = []
-        for i in self.relative_movement:
+        for i in self.movements:
             liste.append(self.position + i)
         return liste
     
     def affichage(self):
-        print(self.relative_movement)
+        print(self.movements)
         print(self.position)
 
 
 
-pl = Plateau(6, 4)
-pl.affichage()
-
 
 
 def lancement():
+    pl = Plateau(6, 4, constantes.knite)
+    pl.affichage()
+
     pass
 
 lancement()
