@@ -18,6 +18,11 @@ class Position:
     def __repr__(self):
         return str(self)
 
+    def getMat(self,mat):
+        return mat[self.x][self.y]
+
+    def setMat(self, mat, val):
+        mat[self.x][self.y] = val
 
 class Plateau:
     vide = 0
@@ -32,9 +37,20 @@ class Plateau:
         self.piece.affichage()
 
     def bouger(self):
+        liste = []
         for move in self.piece:
-            pass
-
+            if move.x >=0 and move.x <= 7 \
+                and move.y >=0 and move.y <= 7 \
+                and move.getMat(self.matrice) == 0:
+                liste.append(move)
+        return liste
+            
+    def accept(self, x, y):
+        pos = Position(x,y)
+        if pos in self.bouger():
+            self.piece.position()
+            return True
+        return False
 
 class Piece:
     relative_movements = []
