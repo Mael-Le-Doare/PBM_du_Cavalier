@@ -55,10 +55,6 @@ class Piece:
         print(self.relative_movements)
         print(self.position)
 
-
-
-
-
 def lancement():
     piece = Piece(0,0,constantes.knight)
     pl = Plateau(6, 4, piece)
