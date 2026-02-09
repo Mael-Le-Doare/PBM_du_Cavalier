@@ -31,9 +31,9 @@ class Plateau:
             print(ligne)
         self.piece.affichage()
 
-    def bouger():
-        pass
-
+    def bouger(self):
+        for move in self.piece:
+            pass
 
 
 class Piece:
@@ -60,6 +60,6 @@ def lancement():
     pl = Plateau(6, 4, piece)
     pl.affichage()
 
-    pass
+    return pl
 
 lancement()
