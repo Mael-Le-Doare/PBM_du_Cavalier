@@ -25,19 +25,33 @@ class Sommet:
     
     
     def afficherAdjacents(self):
-        # affichage des sommets adjacents avec
+        chaineSortie : str = f"Sommets adjacents de {self.nom} ="
+        # affichage des sommets adjacents
         for sommet in self.sommetAdjacents.items():
-            print((sommet)[0],sommet[1])
+            chaineSortie+=f" | sommet : {sommet[0]} poids : {(sommet[1])}"
+        print(chaineSortie+" |")
+    
+    def retourneDegre(self)->int:
+        #renvoie la valeur (entier) du degre de notre sommet
+        return self.degre
+    
+    def retourneBoucle(self)->int:
+        return self.boucle
     
     def initAdjacents(self, dico : dict):
         # methode pour actualiser le dictionnaire des sommets adjacents
         self.sommetAdjacents.update(dico)
         self.initDegre()
     
-    def initDegre(self):
+    def initDegre(self)->int:
         #initianalise les degre du sommet
         for sommets in self.sommetAdjacents:
             self.degre +=1
+            #si l'on rencontre une boucle le degré de notre sommet est incrémenté de 2
+            if sommets.nom==self.nom:
+                self.degre +=1
+                #on incremente egalement le nombre de boucle de notre sommet
+                self.boucle +=1
     
     def estIsole(self)->bool:
         return self.sommetAdjacents=={}
@@ -47,10 +61,13 @@ class Sommet:
 A=Sommet("A",{})
 B=Sommet("B",{})
 C=Sommet("C",{})
+D=Sommet("D",{})
 A.initAdjacents({B:3,C:8})
 B.initAdjacents({A:3,C:5})
 C.initAdjacents({A:8,B:5})
-A.afficherAdjacents()
-B.afficherAdjacents()
-C.afficherAdjacents()
-print(A.degre)
+D.initAdjacents({A:12,B:1,D:1})
+#A.afficherAdjacents()
+#B.afficherAdjacents()
+D.afficherAdjacents()
+# print(D.degre)
+# print(int(D.retourneBoucle()))
