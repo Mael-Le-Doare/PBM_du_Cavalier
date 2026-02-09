@@ -57,17 +57,3 @@ class Sommet:
         return self.sommetAdjacents=={}
 
 
-
-A=Sommet("A",{})
-B=Sommet("B",{})
-C=Sommet("C",{})
-D=Sommet("D",{})
-A.initAdjacents({B:3,C:8})
-B.initAdjacents({A:3,C:5})
-C.initAdjacents({A:8,B:5})
-D.initAdjacents({A:12,B:1,D:1})
-#A.afficherAdjacents()
-#B.afficherAdjacents()
-D.afficherAdjacents()
-print(D.retourneDegre())
-print(int(D.retourneBoucle()))
