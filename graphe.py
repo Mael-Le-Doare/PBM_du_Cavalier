@@ -6,5 +6,9 @@ class Graphe:
     ordre : int = 0
 
     def __init__(self, ordre : int):
-        pass
+
+        for lettre in range(0):
+            for i in range(1,ordre-1):
+                sommet.append(sommet("lettre",{}))
+
 
