@@ -31,6 +31,9 @@ class Plateau:
             print(ligne)
         self.piece.affichage()
 
+    def bouger():
+        pass
+
 
 
 class Piece:
@@ -57,7 +60,7 @@ class Piece:
 
 
 def lancement():
-    piece = Piece(0,0,constantes.knite)
+    piece = Piece(0,0,constantes.knight)
     pl = Plateau(6, 4, piece)
     pl.affichage()
 
