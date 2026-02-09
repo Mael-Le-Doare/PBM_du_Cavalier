@@ -60,6 +60,6 @@ def lancement():
     pl = Plateau(6, 4, piece)
     pl.affichage()
 
-    pass
+    return pl
 
 lancement()
