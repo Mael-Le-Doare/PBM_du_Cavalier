@@ -1,8 +1,8 @@
 import constantes
 
-class Position:
+class Position: #c'est la classe qui gère la position
     
-    def __init__(self, x = 0, y = 0):
+    def __init__(self, x = 0, y = 0): #on initialise    
         self.x = x
         self.y = y 
 
@@ -24,7 +24,7 @@ class Position:
     def setMat(self, mat, val):
         mat[self.x][self.y] = val
 
-class Plateau:
+class Plateau: #c'est la classe pour le plateau
     vide = 0
 
     def __init__(self, x, y, piece):
@@ -52,7 +52,7 @@ class Plateau:
             return True
         return False
 
-class Piece:
+class Piece: #C'est la classe pour la piece
     relative_movements = []
 
     def __init__(self, x, y, mouvements):
