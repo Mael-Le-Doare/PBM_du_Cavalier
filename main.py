@@ -4,10 +4,13 @@ import affichage
 import constantes
 
 
-piece = entities.Piece(0,0,constantes.knight)
-pl = entities.Plateau(6, 4, piece)
+piece = entities.Piece(4,4,constantes.knight)
+pl = entities.Plateau(8, 8, piece)
 liste = pl.bouger()
 
+
+for i in liste:
+     print(i)
 
 
 display = affichage.display(constantes.board,"plateau")

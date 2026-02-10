@@ -1,4 +1,6 @@
 import sommet
+import constantes
+import entities
 class Graphe: 
     #la matrice a deux dimensions de tout les sommet
     sommets : list = []
@@ -15,7 +17,7 @@ class Graphe:
         ligne : list = []
         for lettre in range(1,ordre+1):
             for i in range(1,ordre+1):
-                #les sommet auront un nom du type : E4, A2, f7...
+                #les sommet auront un nom du type : E4, A2, F7...
                 #on n'inisianalise pas encore leur sommets adjacents
                 ligne.append(sommet.Sommet(chr(lettre+64)+str(i),{}))
                 #actualise egalement l'ordre du graphe
@@ -30,9 +32,28 @@ class Graphe:
         for i in self.sommets:
             for j in i:
                 print(j)
+    
+    def initSommetsAdjecents(self):
+        piece= entities.Piece(0,0, constantes.knight)
+        pl=entities.Plateau(self.ordre,self.ordre,piece)
+        for y in range(self.ordre-1):
+            for x in range(self.ordre-1):
+                pl.piece.position.x = x
+                pl.piece.position.y = y
+                liste=pl.bouger()
+
+                print(len(self.sommets))
+                print(self.ordre)
+                print(x)
+                for i in liste:
+                    self.sommets[x][y].initAdjacents({i.getMat(self.sommets):0})
+        print("fini")
+
 
 monGraphe = Graphe(8)
-monGraphe.afficheSommets()
+#monGraphe.afficheSommets()
 print("--------------------------")
-print(monGraphe.ordre)
+monGraphe.initSommetsAdjecents()
+print(monGraphe.sommets[0][0].afficherAdjacents())
+#print(monGraphe.ordre)
 
