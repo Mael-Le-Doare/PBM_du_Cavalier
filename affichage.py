@@ -2,15 +2,7 @@ import tkinter
 
 class display:
 
-    def __init__(self, board, title):
-        root= tkinter.Tk()
-        root.title (title)
-        self.canvas=tkinter.Canvas(root, width=board*100, height=board*100, bg="white")
-        self.canvas.pack()
-        self.board = board
-        self.draw_board()
-
-        root.mainloop()
+    
 
 
 
@@ -30,9 +22,17 @@ class display:
 
 
     def draw_piece(self, position):
-        x1, y1 = (position.x - 40), (position.y - 40)
-        x2, y2 = (position.x + 40), (position.y + 40)
-        self.canvas.create_oval(x1, y1, x2, y2, fill="blue")
+        x1, y1 = (position.x - 40 + 50), (position.y - 40 + 50)
+        x2, y2 = (position.x + 40 + 50), (position.y + 40 + 50)
+        self.canvas.create_oval(x1, y1, x2, y2, fill="blue", outline= "black",width=1)
 
+    def __init__(self, board, title):
+            self.root = tkinter.Tk()
+            self.root.title (title)
+            self.canvas = tkinter.Canvas(self.root, width=board*100, height=board*100, bg="white")
+            self.canvas.pack()
+            self.board = board
+            self.draw_board()
 
-
+    def run(self):
+        self.root.mainloop()
