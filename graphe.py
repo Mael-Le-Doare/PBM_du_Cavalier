@@ -18,7 +18,7 @@ class Graphe:
         for lettre in range(1,ordre+1):
             for i in range(1,ordre+1):
                 #les sommet auront un nom du type : E4, A2, F7...
-                #on n'inisianalise pas encore leur sommets adjacents
+                #on n'initianalise pas encore leur sommets adjacents
                 ligne.append(sommet.Sommet(chr(lettre+64)+str(i),{}))
                 #actualise egalement l'ordre du graphe
                 self.ordre+=1
@@ -26,6 +26,7 @@ class Graphe:
             self.sommets.append(ligne)
             #on vide notre liste
             ligne=[]
+        self.initSommetsAdjecents()
 
     def afficheSommets(self):
         #affichage de tout les sommets du graphes
@@ -34,26 +35,50 @@ class Graphe:
                 print(j)
     
     def initSommetsAdjecents(self):
+        #fonction qui pour chaque sommet du graphe, renseigne ses sommets adjacents
+        #creation de notre piece cavalier
         piece= entities.Piece(0,0, constantes.knight)
-        pl=entities.Plateau(self.ordre,self.ordre,piece)
-        for y in range(self.ordre-1):
-            for x in range(self.ordre-1):
+        #creation de notre plateau
+        pl=entities.Plateau(len(self.sommets),len(self.sommets),piece)
+        for y in range(len(self.sommets)):
+            for x in range(len(self.sommets)):
                 pl.piece.position.x = x
                 pl.piece.position.y = y
+                #on creer une liste contenant tout les deplacements possibles de notre cavalier
                 liste=pl.bouger()
-
-                print(len(self.sommets))
-                print(self.ordre)
-                print(x)
                 for i in liste:
+                    #on renseigne au sommet de coordonnes(x,y) dans notre liste de sommet les sommets adjacents correspondant aux deplacement
                     self.sommets[x][y].initAdjacents({i.getMat(self.sommets):0})
-        print("fini")
+    
+    def DFS(self, nomSommet : str)->list:
+        #renvoie une liste resultant du parcours en largeur du graphe
+        listeSortie : list = []
+        sommetsATraiter : list = self.sommets.copy()
+        sommetActuel : sommet = None
+        if self.existe(nomSommet)[0]!=None:
+            while len(sommetsATraiter)!=0:
+                pass
+
+                
+
+    
+
+    def existe(self, nomSommet : str)->tuple:
+        #methode qui verifie que le sommet est bien present dans le graphe et renvoie ses coordonees
+        for i in range(len(self.sommets)):
+            for j in range(len(self.sommets)):
+                if self.sommets[i][j].nom == nomSommet:
+                    return (i,j)
+        return (None,None)
+
+
+
+
+
 
 
 monGraphe = Graphe(8)
 #monGraphe.afficheSommets()
-print("--------------------------")
-monGraphe.initSommetsAdjecents()
-print(monGraphe.sommets[0][0].afficherAdjacents())
+#print("--------------------------")
+#print(monGraphe.sommets[3][4].afficherAdjacents())
 #print(monGraphe.ordre)
-
