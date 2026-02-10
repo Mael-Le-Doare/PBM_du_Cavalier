@@ -38,7 +38,7 @@ class Plateau: #c'est la classe pour le plateau
 
     def bouger(self):
         liste = []
-        for move in self.piece:
+        for move in self.piece.movement():
             if move.x >=0 and move.x <= 7 \
                 and move.y >=0 and move.y <= 7 \
                 and move.getMat(self.matrice) == 0:
@@ -70,12 +70,3 @@ class Piece: #C'est la classe pour la piece
     def affichage(self):    
         print(self.relative_movements)
         print(self.position)
-
-def lancement():
-    piece = Piece(0,0,constantes.knight)
-    pl = Plateau(6, 4, piece)
-    pl.affichage()
-
-    return pl
-
-lancement()

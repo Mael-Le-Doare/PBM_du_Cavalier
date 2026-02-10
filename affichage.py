@@ -35,4 +35,6 @@ class display:
             self.draw_board()
 
     def run(self):
-        self.root.mainloop()
+        self.root.update() 
+
+    
