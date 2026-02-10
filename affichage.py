@@ -1,52 +1,38 @@
 import tkinter 
 
-def draw_samples (canvas):
-    canvas.create_rectangle ((100, 100), (600, 600),  
-                             fill="cyan", outline="blue", width=5)
+class display:
 
-    canvas.create_oval ((100, 100), (600, 600), 
-                        fill="pink", outline="red", width=3)
+    def __init__(self, board, title):
+        root= tkinter.Tk()
+        root.title (title)
+        self.canvas=tkinter.Canvas(root, width=board*100, height=board*100, bg="white")
+        self.canvas.pack()
+        self.board = board
+        self.draw_board()
 
-    canvas.create_line ((100, 100), (500, 200),(600, 600), 
-                        fill="gray", width=3, dash=(8,4))
-
-    canvas.create_line ((100, 100), (500, 200), (600, 600), 
-                        fill="black", width=5, smooth=True,
-                        arrow="last", arrowshape=(30,45,15))
- 
-    canvas.create_text (600, 100, text= "Hello\nEverybody",
-                        fill= "black", font= ("courier", 30, "bold italic"),
-                        anchor="center", justify= "center")
-
-
-def draw_board():
-    for i in range(0,800,100):
-        for j in range(0,800,100):
-            if ((i+j)/100 %2 == 0):
-                draw_board.create_rectangle(i, j, i+100, j+100, fill = "black")
-    
+        root.mainloop()
 
 
 
-
-def draw_vertex (canvas, center, radius, label):
-    canvas.create_oval ((center[0]-radius, center[1]-radius), (center[0]+radius, center[1]+radius),
-                        fill="yellow", outline="blue", width=1)
-
-    canvas.create_text (center, text= label,
-                        fill= "black",
-                        anchor="center", justify= "center")
+    def draw_board(self):
+        for i in range(0,self.board*100,100):
+            for j in range(0,self.board*100,100):
+                if ((i+j)/100 %2 != 0):
+                    self.canvas.create_rectangle(i, j, i+100, j+100, fill = "black")
 
 
 
+    def draw_passed(self, liste):
+        for i in range(0,self.board):
+            for j in range(0,self.board):
+                if (i,j) in liste:
+                    self.canvas.create_rectangle(i, j, i+100, j+100, fill = "green")
 
-root= tkinter.Tk()
-root.title ("demo")
-canvas=tkinter.Canvas(root, width=800, height=800, bg="white")
-canvas.pack()
 
-draw_vertex (canvas, (400, 300), 15, "A")
-draw_vertex (canvas, (200, 500), 15, "B")
-draw_vertex (canvas, (500, 500), 15, "C")
+    def draw_piece(self, position):
+        x1, y1 = (position.x - 40), (position.y - 40)
+        x2, y2 = (position.x + 40), (position.y + 40)
+        self.canvas.create_oval(x1, y1, x2, y2, fill="blue")
 
-root.mainloop()
+
+

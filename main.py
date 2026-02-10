@@ -1,4 +1,9 @@
 import entities
 import sommet
+import affichage
+import constantes
 
-plateau = entities.lancement()
+
+display = affichage.display(constantes.board,"plateau")
+display.draw_piece(entities.Position(2,1))
+
