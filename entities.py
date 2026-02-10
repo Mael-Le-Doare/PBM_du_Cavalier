@@ -10,7 +10,7 @@ class Position:
         p = Position()
         p.x = other.x + self.x
         p.y = other.y + self.y
-        return
+        return p 
     
     def __str__(self):
         return f"({self.x}, {self.y})"

@@ -18,10 +18,15 @@ def draw_samples (canvas):
                         fill= "black", font= ("courier", 30, "bold italic"),
                         anchor="center", justify= "center")
 
-root= tkinter.Tk()
-root.title ("demo")
-canvas=tkinter.Canvas(root, width=800, height=800, bg="white")
-canvas.pack()
+
+def draw_board():
+    for i in range(0,800,100):
+        for j in range(0,800,100):
+            if ((i+j)/100 %2 == 0):
+                draw_board.create_rectangle(i, j, i+100, j+100, fill = "black")
+    
+
+
 
 
 def draw_vertex (canvas, center, radius, label):
@@ -32,18 +37,16 @@ def draw_vertex (canvas, center, radius, label):
                         fill= "black",
                         anchor="center", justify= "center")
 
+
+
+
+root= tkinter.Tk()
+root.title ("demo")
+canvas=tkinter.Canvas(root, width=800, height=800, bg="white")
+canvas.pack()
+
 draw_vertex (canvas, (400, 300), 15, "A")
 draw_vertex (canvas, (200, 500), 15, "B")
 draw_vertex (canvas, (500, 500), 15, "C")
-
-def draw_straight_arc (canvas, start, end, label):
-    canvas.create_line ((100, 100), (500, 200), (600, 600), 
-                        fill="green", width=1, smooth=True,
-                        arrow="last", arrowshape=(30,45,15))
-
-draw_straight_arc (canvas, (400, 300), (200, 500), "10")
-draw_straight_arc (canvas, (200, 500), (500, 500), "20")
-draw_straight_arc (canvas, (500, 500), (400, 300), "30")
-
 
 root.mainloop()
