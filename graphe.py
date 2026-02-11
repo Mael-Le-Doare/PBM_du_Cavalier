@@ -55,9 +55,22 @@ class Graphe:
         listeSortie : list = []
         sommetsATraiter : list = self.sommets.copy()
         sommetActuel : sommet = None
-        if self.existe(nomSommet)[0]!=None:
-            while len(sommetsATraiter)!=0:
-                pass
+        present : tuple = self.existe(nomSommet)
+        while len(sommetsATraiter)!=0:
+            if present[0]!=None:
+                sommetActuel=self.sommets[present[0]][present[1]]
+            listeSortie.append(sommetActuel)
+            sommetsATraiter[present[0]].pop(present[1])
+            if listeSortie[-1].estVisite!=True:
+                present=self.existe(sommetActuel.nom)
+                self.sommets[present[0]][present[1]].visite=True
+                for voisins in sommetActuel.sommetAdjacents:
+                    listeSortie.append(voisins)
+                    present=self.existe(voisins.nom)
+                    self.sommets[present[0]][present[1]].visite=True
+                    sommetsATraiter[present[0]].pop(present[1])
+        return listeSortie
+
 
                 
 
@@ -82,3 +95,4 @@ monGraphe = Graphe(8)
 #print("--------------------------")
 #print(monGraphe.sommets[3][4].afficherAdjacents())
 #print(monGraphe.ordre)
+monGraphe.DFS("A1")
