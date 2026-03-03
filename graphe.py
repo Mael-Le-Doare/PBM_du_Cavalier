@@ -76,9 +76,12 @@ class Graphe:
         print(listeSortie)
         #renvoie une liste resultant du parcours en largeur du graphe
         sommetActuel : sommet = self.sommets[self.existe(nomSommet)[0]][self.existe(nomSommet)[1]]
-        if sommetActuel.nom not in listeSortie and sommetActuel.estVisite==False:
+        if sommetActuel.nom not in listeSortie and not sommetActuel.estVisite:
+            print("good")
             listeSortie.append(sommetActuel.nom)
             self.sommets[self.existe(nomSommet)[0]][self.existe(nomSommet)[1]].estVisite=True
+        else:
+            return
         for voisins in sommetActuel.sommetAdjacents.keys():
             self.DFS2(voisins.nom,listeSortie)
 
@@ -106,6 +109,8 @@ monGraphe = Graphe(8)
 #print("--------------------------")
 #print(monGraphe.sommets[3][4].afficherAdjacents())
 #print(monGraphe.ordre)
-monGraphe.DFS2("A1",[])
+liste = []
+monGraphe.DFS2("A1",liste)
 print(monGraphe.sommets[monGraphe.existe("G5")[0]][monGraphe.existe("G5")[1]].afficherAdjacents())
 
+print(liste)
