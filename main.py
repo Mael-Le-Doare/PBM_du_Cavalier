@@ -2,6 +2,7 @@ import entities
 import sommet
 import affichage
 import constantes
+import time
 
 
 piece = entities.Piece(4,4,constantes.knight)
@@ -14,7 +15,10 @@ for i in liste:
 
 
 display = affichage.display(constantes.board,"plateau")
-display.draw_piece(entities.Position(2,1))
+display.piece(entities.Position(3,3))
+display.passed([(1,2),(2,2)])
 display.run()
-display.draw_board()
-display.draw_piece(entities.Position(1,2))
+
+
+display.piece(entities.Position(3,4))
+display.passed([(1,2),(2,2),(3,3)])

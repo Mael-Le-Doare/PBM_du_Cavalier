@@ -1,5 +1,11 @@
-import tkinter 
 import entities
+import sommet
+import affichage
+import constantes
+import time
+import tkinter
+
+
 
 class display:
 
@@ -56,3 +62,22 @@ class display:
         self.root.after(50, self.draw) 
         self.root.mainloop() 
 
+
+
+piece = entities.Piece(4,4,constantes.knight)
+pl = entities.Plateau(8, 8, piece)
+liste = pl.bouger()
+
+
+for i in liste:
+    print(i)
+
+
+display = affichage.display(constantes.board,"plateau")
+display.piece(entities.Position(3,3))
+display.passed([(1,2),(2,2)])
+display.run()
+
+
+display.piece(entities.Position(3,4))
+display.passed([(1,2),(2,2),(3,3)])
