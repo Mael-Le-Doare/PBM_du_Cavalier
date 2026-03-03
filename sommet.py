@@ -54,6 +54,7 @@ class Sommet:
                 self.boucle +=1
     
     def estIsole(self)->bool:
+        #renvoie true si le sommet n'a aucun sommet adjacent
         return self.sommetAdjacents=={}
 
 

@@ -51,66 +51,42 @@ class Graphe:
                     #on renseigne au sommet de coordonnes(x,y) dans notre liste de sommet les sommets adjacents correspondant aux deplacement
                     self.sommets[x][y].initAdjacents({i.getMat(self.sommets):0})
     
-    def DFS(self, nomSommet : str)->list:
-        #renvoie une liste resultant du parcours en largeur du graphe
-        listeSortie : list = []
-        sommetsATraiter : list = self.sommets.copy()
-        sommetActuel : sommet = None
-        present : tuple = self.existe(nomSommet)
-        while len(sommetsATraiter)!=0:
-            if present[0]!=None:
-                sommetActuel=self.sommets[present[0]][present[1]]
-            listeSortie.append(sommetActuel)
-            sommetsATraiter[present[0]].pop(present[1])
-            if listeSortie[-1].estVisite!=True:
-                present=self.existe(sommetActuel.nom)
-                self.sommets[present[0]][present[1]].visite=True
-                for voisins in sommetActuel.sommetAdjacents:
-                    listeSortie.append(voisins)
-                    present=self.existe(voisins.nom)
-                    self.sommets[present[0]][present[1]].visite=True
-                    sommetsATraiter[present[0]].pop(present[1])
-        return listeSortie
     
-    def DFS2(self, nomSommet : str, listeSortie : list)->list:
-        print(listeSortie)
+    def DFS(self, nomSommet : str, listeSortie : list)->list:
         #renvoie une liste resultant du parcours en largeur du graphe
+        #on traite le sommet actuel
         sommetActuel : sommet = self.sommets[self.existe(nomSommet)[0]][self.existe(nomSommet)[1]]
+        #si il n'est pas dans notre liste de parcours et qu'il n'est pas visité alors :
         if sommetActuel.nom not in listeSortie and not sommetActuel.estVisite:
-            print("good")
+            #on l'ajoute à notre liste
             listeSortie.append(sommetActuel.nom)
+            #on le marque comme visité
             self.sommets[self.existe(nomSommet)[0]][self.existe(nomSommet)[1]].estVisite=True
         else:
+            #sinon on ne l'ajoute pas (on ne fait rien)
             return
         for voisins in sommetActuel.sommetAdjacents.keys():
-            self.DFS2(voisins.nom,listeSortie)
-
-
-                
-
-    
+            #tant que notre sommet a des voisins adjacents
+            #on traite ce sommet en passant notre liste actualisée en paramètre
+            self.DFS(voisins.nom,listeSortie)
 
     def existe(self, nomSommet : str)->tuple:
         #methode qui verifie que le sommet est bien present dans le graphe et renvoie ses coordonees
+        #on parcours les colonnes
         for i in range(len(self.sommets)):
+            #on parcours les lignes
             for j in range(len(self.sommets)):
+                #si on le trouve on renvoie un tuple contenant sa position (x,y)
                 if self.sommets[i][j].nom == nomSommet:
                     return (i,j)
+        #sinon on renvoie un tuple "nul"
         return (None,None)
 
 
 
 
-
-
-
 monGraphe = Graphe(8)
-#monGraphe.afficheSommets()
-#print("--------------------------")
-#print(monGraphe.sommets[3][4].afficherAdjacents())
-#print(monGraphe.ordre)
 liste = []
-monGraphe.DFS2("A1",liste)
-print(monGraphe.sommets[monGraphe.existe("G5")[0]][monGraphe.existe("G5")[1]].afficherAdjacents())
+monGraphe.DFS("A1",liste)
 
 print(liste)
