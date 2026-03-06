@@ -1,4 +1,3 @@
-import entities
 import affichage
 import constantes
 import graphe

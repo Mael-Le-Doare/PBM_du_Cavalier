@@ -1,5 +1,3 @@
-import constantes
-
 class Position: #c'est la classe qui gère la position
     
     def __init__(self, x = 0, y = 0): #on initialise    
