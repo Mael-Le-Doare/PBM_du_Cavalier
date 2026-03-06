@@ -1,6 +1,7 @@
 import sommet
 import constantes
 import entities
+import time 
 
 class Graphe: 
     #la matrice a deux dimensions de tout les sommet
@@ -58,22 +59,31 @@ class Graphe:
     
     
     def DFS(self, nomSommet : str, listeSortie : list)->list:
-        #renvoie une liste resultant du parcours en largeur du graphe
-        #on traite le sommet actuel
+
         sommetActuel : sommet = self.sommets[self.existe(nomSommet)[0]][self.existe(nomSommet)[1]]
-        #si il n'est pas dans notre liste de parcours et qu'il n'est pas visité alors :
+
+        sortie = False
         if sommetActuel.nom not in listeSortie and not sommetActuel.estVisite:
-            #on l'ajoute à notre liste
+
             listeSortie.append(sommetActuel.nom)
-            #on le marque comme visité
             self.sommets[self.existe(nomSommet)[0]][self.existe(nomSommet)[1]].estVisite=True
+            print(listeSortie)
+            for voisins in sommetActuel.sommetAdjacents.keys():
+                print(sommetActuel.afficherAdjacents())
+
+                
+                if self.DFS(voisins.nom,listeSortie):
+                    sortie = True
+
         else:
-            #sinon on ne l'ajoute pas (on ne fait rien)
-            return
-        for voisins in sommetActuel.sommetAdjacents.keys():
-            #tant que notre sommet a des voisins adjacents
-            #on traite ce sommet en passant notre liste actualisée en paramètre
-            self.DFS(voisins.nom,listeSortie)
+            listeSortie.pop()   
+
+            
+        return sortie
+        
+        
+
+
 
     def existe(self, nomSommet : str)->tuple:
         #methode qui verifie que le sommet est bien present dans le graphe et renvoie ses coordonees
@@ -96,10 +106,4 @@ class Graphe:
 
 
 
-monGraphe = Graphe(8)
-liste = [] 
-print(monGraphe.estValide(0,0))
-monGraphe.DFS("A1",liste)
-print(monGraphe.estValide(0,0))
-liste=monGraphe.convertionDFS(liste)
-print(liste)
+

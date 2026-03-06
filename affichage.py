@@ -26,6 +26,8 @@ class display:
         for position in self.liste:
             self.canvas.create_rectangle(position.x*100+30, position.y*100+30, (position.x+1)*100-30,
                                           (position.y+1)*100-30, fill = "green")
+            #label = self.root.Label(self.root,text=str(self.count))
+            #label.place(x=position.x-40,y=position.y-40)
 
 
 
@@ -46,6 +48,8 @@ class display:
             self.canvas.pack()
             self.b = tkinter.Button(self.root, text = "mouvement suivant", command=self.update)
             self.b.pack() 
+            self.liste = []
+            self.position = entities.Position()
             self.board = board
             self.path = path
             self.count = 0
