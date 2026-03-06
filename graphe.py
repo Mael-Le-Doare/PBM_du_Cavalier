@@ -35,6 +35,11 @@ class Graphe:
             for j in i:
                 print(j)
     
+    def estValide(self, x : int, y : int)->bool:
+        #renvoie si la case de coordones (x,y) a ete visite (true si non visitee; false sinon)
+        return not(self.sommets[x][y].estVisite)
+
+    
     def initSommetsAdjecents(self):
         #fonction qui pour chaque sommet du graphe, renseigne ses sommets adjacents
         #creation de notre piece cavalier
@@ -81,12 +86,20 @@ class Graphe:
                     return (i,j)
         #sinon on renvoie un tuple "nul"
         return (None,None)
+    
+    def convertionDFS(self, liste : list)->list:
+        listeSortie: list = []
+        for i in liste:
+            listeSortie.append(self.existe(i))
+        return listeSortie
 
 
 
 
 monGraphe = Graphe(8)
-liste = []
+liste = [] 
+print(monGraphe.estValide(0,0))
 monGraphe.DFS("A1",liste)
-
+print(monGraphe.estValide(0,0))
+liste=monGraphe.convertionDFS(liste)
 print(liste)
