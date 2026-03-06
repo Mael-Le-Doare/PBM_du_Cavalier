@@ -86,12 +86,20 @@ class Graphe:
                     return (i,j)
         #sinon on renvoie un tuple "nul"
         return (None,None)
+    
+    def convertionDFS(self, liste : list)->list:
+        listeSortie: list = []
+        for i in liste:
+            listeSortie.append(self.existe(i))
+        return listeSortie
 
 
 
 
 monGraphe = Graphe(8)
-liste = []
+liste = [] 
 print(monGraphe.estValide(0,0))
 monGraphe.DFS("A1",liste)
 print(monGraphe.estValide(0,0))
+liste=monGraphe.convertionDFS(liste)
+print(liste)
