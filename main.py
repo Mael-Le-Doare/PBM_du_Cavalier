@@ -20,5 +20,3 @@ display.passed([(1,2),(2,2)])
 display.run()
 
 
-display.piece(entities.Position(3,4))
-display.passed([(1,2),(2,2),(3,3)])

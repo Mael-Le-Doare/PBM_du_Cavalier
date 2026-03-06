@@ -13,9 +13,14 @@ class display:
             self.draw_pa()
             self.draw_p()
             self.changed = False
-
-        self.root.after(50, self.draw) 
         
+    def update(self):
+        
+        self.draw()
+        self.piece(entities.Position(3,4))
+        self.passed([(1,2),(2,2),(3,3)])
+
+
     def passed(self, liste):
         self.liste = liste
         self.changed = True
@@ -27,6 +32,7 @@ class display:
 
 
     def draw_b(self):
+        self.canvas.create_rectangle(0, 0, self.board*100, self.board*100, fill = "white")
         for i in range(0,self.board*100,100):
             for j in range(0,self.board*100,100):
                 if ((i+j)/100 %2 != 0):
@@ -46,13 +52,12 @@ class display:
     def __init__(self, board, title):
             self.root = tkinter.Tk()
             self.root.title (title)
-            self.canvas = tkinter.Canvas(self.root, width=board*100, height=board*100, bg="white")
+            self.canvas = tkinter.Canvas(self.root, width=board*100, height=board*100+50, bg="white")
             self.canvas.pack()
+            self.b = tkinter.Button(self.root, text = "mouvement suivant", command=self.update)
+            self.b.pack() 
             self.board = board
-            self.draw_b()
 
     def run(self):
-        self.changed = True
-        self.root.after(50, self.draw) 
         self.root.mainloop() 
 
