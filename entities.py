@@ -23,6 +23,9 @@ class Position: #c'est la classe qui gère la position
 
     def setMat(self, mat, val):
         mat[self.x][self.y] = val
+    
+    def doublet(self):
+        return self.x,self.y
 
 class Plateau: #c'est la classe pour le plateau
     vide = 0
