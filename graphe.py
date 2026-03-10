@@ -1,7 +1,6 @@
 import sommet
 import constantes
 import entities
-import time 
 
 class Graphe: 
     #la matrice a deux dimensions de tout les sommet
@@ -59,27 +58,50 @@ class Graphe:
     
     
     def DFS(self, nomSommet : str, listeSortie : list)->list:
+        
+        #sommetActuel : sommet = self.sommets[self.existe(nomSommet)[0]][self.existe(nomSommet)[1]]
+        #
+        #sortie = False
+        #if sommetActuel.nom not in listeSortie and not sommetActuel.estVisite:
+        #    self.sommets[self.existe(nomSommet)[0]][self.existe(nomSommet)[1]].estVisite=True
+        #    print(listeSortie)
+        #    print(sommetActuel)
+        #    
+        #    for voisins in sommetActuel.sommetAdjacents.keys():
+        #        listeSortie.append(sommetActuel.nom)
+        #        print(f"je suis en {sommetActuel} je regarde {voisins}")
+        #        
+        #        if self.DFS(voisins.nom,listeSortie):
+        #            sortie = True
+        #    
+        #            
+        #else:
+        #    listeSortie.pop()
+        #    self.sommets[self.existe(nomSommet)[0]][self.existe(nomSommet)[1]].estVisite= False
+        #print(sortie)
+        #return sortie
+
 
         sommetActuel : sommet = self.sommets[self.existe(nomSommet)[0]][self.existe(nomSommet)[1]]
-
-        sortie = False
-        if sommetActuel.nom not in listeSortie and not sommetActuel.estVisite:
-
-            listeSortie.append(sommetActuel.nom)
-            self.sommets[self.existe(nomSommet)[0]][self.existe(nomSommet)[1]].estVisite=True
-            print(listeSortie)
-            for voisins in sommetActuel.sommetAdjacents.keys():
-                print(sommetActuel.afficherAdjacents())
-
+        valide = False
+        #if len(listeSortie) == 64:
+        #    return True
+        for voisin in sommetActuel.sommetAdjacents.keys():
+            print(f"je suis en {sommetActuel} je regarde {voisin}")
+            if sommetActuel.nom not in listeSortie[:-1]:
+                listeSortie.append(voisin.nom)
+                print(f"je le tente {listeSortie}")
+                if self.DFS(voisin.nom,listeSortie):
+                    valide = True
+                else:
+                    print("marche pas")
+                    listeSortie.pop()
+        return valide
                 
-                if self.DFS(voisins.nom,listeSortie):
-                    sortie = True
 
-        else:
-            listeSortie.pop()   
 
-            
-        return sortie
+
+
         
         
 

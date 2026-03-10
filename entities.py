@@ -42,8 +42,8 @@ class Plateau: #c'est la classe pour le plateau
     def bouger(self):
         liste = []
         for move in self.piece.movement():
-            if move.x >=0 and move.x <= 7 \
-                and move.y >=0 and move.y <= 7 \
+            if move.x >=0 and move.x <= constantes.board-1 \
+                and move.y >=0 and move.y <= constantes.board-1 \
                 and move.getMat(self.matrice) == 0:
                 liste.append(move)
         return liste
