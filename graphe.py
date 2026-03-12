@@ -113,6 +113,57 @@ class Graphe:
                 self.sommets[cooVoisins[0]][cooVoisins[1]].estVisite = False
     
         return False
+    
+    def DFSCycle(self, nomSommet : str, nomDepart : str, listeSortie : list) -> bool:
+        #La fonction qui nous permet de resoudre le probleme du cavalier avec un parcours en profondeur et la methode Warnsdorff
+        #ici on ne cherche à réaliser un cycle
+        #on recupere les coordonees du sommet grace à son nom passé en parametre
+        cooSommetActuel : tuple = self.existe(nomSommet)
+
+        #si le sommet n'est pas dans le graphe alors on arrete le parcours
+        if cooSommetActuel == (None, None):
+            return False
+
+        #grace aux coordonees recuperees, on obtient notre sommet courant
+        sommetActuel : sommet = self.sommets[cooSommetActuel[0]][cooSommetActuel[1]]
+
+        #notre condition d'arret : on arrete les appelles recursif quand on a trouver un chemin hamiltonien qui revient au point de depart
+        if len(listeSortie) == self.ordre:
+            cooDepart = self.existe(nomDepart)
+            sommetDepart = self.sommets[cooDepart[0]][cooDepart[1]]
+            if sommetDepart in sommetActuel.sommetAdjacents:
+                return True
+            else:
+             return False
+        # on creer une liste conteant tout les sommets/cases ajacents à notre sommet courant
+        voisins : list = sommetActuel.sommetAdjacents[:]
+        # on applique la methode de tri de Warnsdorff ce qui optimise grandement notre parcours
+        #on tri les voisins suivant leur nombre de voisins pour choisir la case qui possède le moins de coups suivants  (gain de temps énorme)
+        voisins.sort(key=lambda v: sum(
+        1 for sommets in v.sommetAdjacents
+        if not self.sommets[self.existe(sommets.nom)[0]][self.existe(sommets.nom)[1]].estVisite))
+        
+        #maintenant notre liste triee, on parcours les voisins
+        for voisin in voisins:
+            #on recupère leur coordonees dans notre matrice
+            cooVoisins = self.existe(voisin.nom)
+        
+            #si ils ne sont pas déjà visitées, on les ajoutes a notre liste et on les met comme visite
+            if not self.sommets[cooVoisins[0]][cooVoisins[1]].estVisite:
+                listeSortie.append(voisin.nom)
+                self.sommets[cooVoisins[0]][cooVoisins[1]].estVisite = True
+
+                #appel récursif
+                if self.DFSCycle(voisin.nom,nomDepart, listeSortie):
+                    return True
+
+                #si l'appel recursif ne renvoie pas true, alors le chemin est mauvais 
+                #alors on retire ce sommet de notre liste
+                listeSortie.pop()
+                #on le remet comme non visite
+                self.sommets[cooVoisins[0]][cooVoisins[1]].estVisite = False
+    
+        return False
 
 
     def convertionDFS(self, liste : list)->list:

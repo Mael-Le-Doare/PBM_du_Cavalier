@@ -69,9 +69,10 @@ class display:
         self.liste = []
         self.board = board
         self.path = path
+        self.positionDepart= entities.Position(*self.path[0])
         self.position = entities.Position(*self.path[0])
         self.count = 0
         self.draw()
         
     def run(self):
-        self.root.mainloop() 
+        self.root.mainloop()
