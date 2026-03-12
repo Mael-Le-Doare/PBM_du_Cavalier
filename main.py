@@ -34,7 +34,7 @@ liste = [depart]
 var = monGraphe.DFS(depart, liste)
 liste=monGraphe.convertionDFS(liste)
 
-
+# si la longueur de la liste n'est pas égalle à la taille du plateau, alors il n'y a pas de solution
 if len(liste)!=constantes.board**2:
     print(f"Le tour du cavalier est impossible en partant de {depart} !")
 else:
