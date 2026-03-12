@@ -3,7 +3,7 @@ class Sommet:
     # nom du sommet
     nom : str = ""
     # dictionnaire des sommet adjacents (la clef etant le sommet et la valeur designe le poids de l'arrette)
-    sommetAdjacents : dict = {}
+    sommetAdjacents : list = []
     # le sommet a t'il ete visite ?
     estVisite : bool = False
     # degré du graph
@@ -27,8 +27,8 @@ class Sommet:
     def afficherAdjacents(self):
         chaineSortie : str = f"Sommets adjacents de {self.nom} ="
         # affichage des sommets adjacents
-        for sommet in self.sommetAdjacents.items():
-            chaineSortie+=f" | sommet : {sommet[0]} poids : {(sommet[1])}"
+        for sommet in self.sommetAdjacents:
+            chaineSortie+=f" | sommet : {sommet[0]}"
         print(chaineSortie+" |")
     
     def retourneDegre(self)->int:
@@ -38,37 +38,15 @@ class Sommet:
     def retourneBoucle(self)->int:
         return self.boucle
     
-    def initAdjacents(self, dico : dict):
-        # methode pour actualiser le dictionnaire des sommets adjacents
-        self.sommetAdjacents.update(dico)
+    def initAdjacents(self, sommet):
+        self.sommetAdjacents.append(sommet)
         self.initDegre()
     
     def initDegre(self)->int:
         #initianalise les degre du sommet
         for sommets in self.sommetAdjacents:
             self.degre +=1
-            #si l'on rencontre une boucle le degré de notre sommet est incrémenté de 2
-            if sommets.nom==self.nom:
-                self.degre +=1
-                #on incremente egalement le nombre de boucle de notre sommet
-                self.boucle +=1
     
     def estIsole(self)->bool:
         #renvoie true si le sommet n'a aucun sommet adjacent
-        return self.sommetAdjacents=={}
-
-
-
-# A=Sommet("A",{})
-# B=Sommet("B",{})
-# C=Sommet("C",{})
-# D=Sommet("D",{})
-# A.initAdjacents({B:3,C:8})
-# B.initAdjacents({A:3,C:5})
-# C.initAdjacents({A:8,B:5})
-# D.initAdjacents({A:12,B:1,D:1})
-#A.afficherAdjacents()
-#B.afficherAdjacents()
-#D.afficherAdjacents()
-#print(D.retourneDegre())
-#print(int(D.retourneBoucle()))
+        return self.sommetAdjacents==[]

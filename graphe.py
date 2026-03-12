@@ -3,13 +3,11 @@ import constantes
 import entities
 
 class Graphe: 
-    #la matrice a deux dimensions de tout les sommet
-    sommets : list = []
-    #nombre de Sommet:
-    ordre : int = 0
 
     def __init__(self, ordre : int):
         #creation de tout les sommets et initianalisation de l'ordre du graphe
+        self.ordre=0
+        self.sommets=[]
         self.initGraph(ordre)
 
     
@@ -20,7 +18,7 @@ class Graphe:
             for i in range(1,ordre+1):
                 #les sommet auront un nom du type : E4, A2, F7...
                 #on n'initianalise pas encore leur sommets adjacents
-                ligne.append(sommet.Sommet(chr(lettre+64)+str(i),{}))
+                ligne.append(sommet.Sommet(chr(lettre+64)+str(i),[]))
                 #actualise egalement l'ordre du graphe
                 self.ordre+=1
             #on ajoute notre ligne
@@ -54,67 +52,46 @@ class Graphe:
                 liste=pl.bouger()
                 for i in liste:
                     #on renseigne au sommet de coordonnes(x,y) dans notre liste de sommet les sommets adjacents correspondant aux deplacement
-                    self.sommets[x][y].initAdjacents({i.getMat(self.sommets):0})
+                    self.sommets[x][y].initAdjacents(i.getMat(self.sommets))
     
+    def existe(self, nomSommet : str) -> tuple:
+        # ✅ Extraire la lettre et le chiffre
+        lettre = ord(nomSommet[0]) - ord('A')  # A=0, B=1, ..., H=7
+        chiffre = int(nomSommet[1:]) - 1        # 1=0, 2=1, ..., 8=7
     
-    def DFS(self, nomSommet : str, listeSortie : list)->list:
-        
-        #sommetActuel : sommet = self.sommets[self.existe(nomSommet)[0]][self.existe(nomSommet)[1]]
-        #
-        #sortie = False
-        #if sommetActuel.nom not in listeSortie and not sommetActuel.estVisite:
-        #    self.sommets[self.existe(nomSommet)[0]][self.existe(nomSommet)[1]].estVisite=True
-        #    print(listeSortie)
-        #    print(sommetActuel)
-        #    
-        #    for voisins in sommetActuel.sommetAdjacents.keys():
-        #        listeSortie.append(sommetActuel.nom)
-        #        print(f"je suis en {sommetActuel} je regarde {voisins}")
-        #        
-        #        if self.DFS(voisins.nom,listeSortie):
-        #            sortie = True
-        #    
-        #            
-        #else:
-        #    listeSortie.pop()
-        #    self.sommets[self.existe(nomSommet)[0]][self.existe(nomSommet)[1]].estVisite= False
-        #print(sortie)
-        #return sortie
+        # ✅ Vérifier que c'est valide
+        if 0 <= lettre < len(self.sommets) and 0 <= chiffre < len(self.sommets):
+            return (lettre, chiffre)
+    
+        return (None, None)
+    
 
-        sommetActuel : sommet = self.sommets[self.existe(nomSommet)[0]][self.existe(nomSommet)[1]]
-        valide = False
-        if len(listeSortie) == constantes.board**2 +1:
+    def DFS(self, nomSommet : str, listeSortie : list) -> bool:
+        cooSommetActuel : tuple = self.existe(nomSommet)
+    
+        if cooSommetActuel == (None, None):
+            return False
+    
+        sommetActuel = self.sommets[cooSommetActuel[0]][cooSommetActuel[1]]
+    
+        if len(listeSortie) == self.ordre:
             return True
-        for voisin in sommetActuel.sommetAdjacents.keys():
-            if sommetActuel.nom not in listeSortie[:-1]:
+        for voisin in sommetActuel.sommetAdjacents:
+            cooVoisins = self.existe(voisin.nom)
+        
+            if not self.sommets[cooVoisins[0]][cooVoisins[1]].estVisite:
                 listeSortie.append(voisin.nom)
-                if self.DFS(voisin.nom,listeSortie):
-                    valide = True
-                else:
-                    listeSortie.pop()
-        return valide
-                
-
-
-
-
-        
-        
-
-
-
-    def existe(self, nomSommet : str)->tuple:
-        #methode qui verifie que le sommet est bien present dans le graphe et renvoie ses coordonees
-        #on parcours les colonnes
-        for i in range(len(self.sommets)):
-            #on parcours les lignes
-            for j in range(len(self.sommets)):
-                #si on le trouve on renvoie un tuple contenant sa position (x,y)
-                if self.sommets[i][j].nom == nomSommet:
-                    return (i,j)
-        #sinon on renvoie un tuple "nul"
-        return (None,None)
+                self.sommets[cooVoisins[0]][cooVoisins[1]].estVisite = True
+            
+                if self.DFS(voisin.nom, listeSortie):
+                    return True
+            
+                listeSortie.pop()
+                self.sommets[cooVoisins[0]][cooVoisins[1]].estVisite = False
     
+        return False
+
+
     def convertionDFS(self, liste : list)->list:
         listeSortie: list = []
         for i in liste:
