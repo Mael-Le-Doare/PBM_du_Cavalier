@@ -12,9 +12,10 @@ class display:
         self.draw_trajet()  
 
     def update(self):
-        if self.count < len(self.path) :
+        if self.count < len(self.path) - 1:
             self.count += 1 
             self.liste.append(self.position)
+         if self.count < len(self.path) - 1:
             self.position = entities.Position(*self.path[self.count])
         self.draw()
 
