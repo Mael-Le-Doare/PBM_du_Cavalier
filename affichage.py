@@ -12,7 +12,7 @@ class display:
         self.draw_trajet()  
 
     def update(self):
-        if self.count < len(self.path) - 1:
+        if self.count < len(self.path):
             self.count += 1 
             self.liste.append(self.position)
          if self.count < len(self.path) - 1:
