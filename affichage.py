@@ -7,12 +7,12 @@ class display:
         self.canvas.delete("all") 
         self.draw_b()
         self.draw_pa()
-        if self.count < len(self.path) - 1:
+        if self.count < len(self.path) :
             self.draw_p()
         self.draw_trajet()  
 
     def update(self):
-        if self.count < len(self.path) - 1:
+        if self.count < len(self.path) :
             self.count += 1 
             self.liste.append(self.position)
             self.position = entities.Position(*self.path[self.count])
