@@ -81,20 +81,16 @@ class Graphe:
         #print(sortie)
         #return sortie
 
-
         sommetActuel : sommet = self.sommets[self.existe(nomSommet)[0]][self.existe(nomSommet)[1]]
         valide = False
-        #if len(listeSortie) == 64:
-        #    return True
+        if len(listeSortie) == constantes.board**2 +1:
+            return True
         for voisin in sommetActuel.sommetAdjacents.keys():
-            print(f"je suis en {sommetActuel} je regarde {voisin}")
             if sommetActuel.nom not in listeSortie[:-1]:
                 listeSortie.append(voisin.nom)
-                print(f"je le tente {listeSortie}")
                 if self.DFS(voisin.nom,listeSortie):
                     valide = True
                 else:
-                    print("marche pas")
                     listeSortie.pop()
         return valide
                 
