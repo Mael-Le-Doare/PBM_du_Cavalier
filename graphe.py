@@ -55,18 +55,21 @@ class Graphe:
                     self.sommets[x][y].initAdjacents(i.getMat(self.sommets))
     
     def existe(self, nomSommet : str) -> tuple:
-        # ✅ Extraire la lettre et le chiffre
-        lettre = ord(nomSommet[0]) - ord('A')  # A=0, B=1, ..., H=7
-        chiffre = int(nomSommet[1:]) - 1        # 1=0, 2=1, ..., 8=7
+        #retourne les coordonnes d'une case dans la matrice self.listeSommets
+        #l'abscisse correspond au code ASCII de la case -65 (car ici on est en majuscule)
+        x = ord(nomSommet[0])-ord(chr(65)) 
+        #l'ordonee correspond au chiffre de la case -1 (car le premier indice est 0) 
+        y = int(nomSommet[1:])-1        
     
-        # ✅ Vérifier que c'est valide
-        if 0 <= lettre < len(self.sommets) and 0 <= chiffre < len(self.sommets):
-            return (lettre, chiffre)
+        #on verifie que les coordonnes appartiennent bien au graphe
+        if 0 <= x < len(self.sommets) and 0 <= y < len(self.sommets):
+            return (x, y)
     
         return (None, None)
     
 
     def DFS(self, nomSommet : str, listeSortie : list) -> bool:
+        
         cooSommetActuel : tuple = self.existe(nomSommet)
     
         if cooSommetActuel == (None, None):

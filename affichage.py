@@ -15,7 +15,7 @@ class display:
         if self.count < len(self.path):
             self.count += 1 
             self.liste.append(self.position)
-         if self.count < len(self.path) - 1:
+        if self.count < len(self.path):
             self.position = entities.Position(*self.path[self.count])
         self.draw()
 
@@ -28,19 +28,20 @@ class display:
 
     def draw_pa(self):
         for idx, position in enumerate(self.liste):
+            y = self.board - 1 - position.y  # inverser l'axe Y
             self.canvas.create_rectangle(
-                position.x*100+30, position.y*100+30,
-                (position.x+1)*100-30, (position.y+1)*100-30, fill="green"
+                position.x*100+30, y*100+30,
+                (position.x+1)*100-30, (y+1)*100-30, fill="green"
             )
             self.canvas.create_text(
-                position.x*100+50, position.y*100+50,
+                position.x*100+50, y*100+50,
                 text=str(idx+1), font=("Arial", 16, "bold"), fill="white"
             )
 
     def draw_trajet(self):
         if len(self.liste) > 1:
             points = [
-                (pos.x*100+50, pos.y*100+50)
+                (pos.x*100+50, (self.board-1-pos.y)*100+50)
                 for pos in self.liste
             ]
             for i in range(len(points)-1):
@@ -52,8 +53,9 @@ class display:
 
     def draw_p(self):
         if self.count < len(self.path):
-            x1, y1 = (self.position.x*100 - 40 + 50), (self.position.y*100  - 40 + 50)
-            x2, y2 = (self.position.x*100  + 40 + 50), (self.position.y*100  + 40 + 50)
+            y = self.board - 1 - self.position.y
+            x1, y1 = (self.position.x*100 - 40 + 50), (y*100 - 40 + 50)
+            x2, y2 = (self.position.x*100 + 40 + 50), (y*100 + 40 + 50)
             self.canvas.create_oval(x1, y1, x2, y2, fill="blue", outline="black", width=1)
 
 
@@ -65,9 +67,9 @@ class display:
         self.b = tkinter.Button(self.root, text = "mouvement suivant", command=self.update)
         self.b.pack() 
         self.liste = []
-        self.position = entities.Position()
         self.board = board
         self.path = path
+        self.position = entities.Position(*self.path[0])
         self.count = 0
         self.draw()
         
