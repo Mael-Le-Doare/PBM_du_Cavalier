@@ -23,10 +23,10 @@ while monGraphe.existe(depart)[0]==None:
     depart = input("Veuillez renseigner la case de depart : ").upper()
 
 #on demande si l'on souhaite chercher un cycle
-cycle = input("Voulez chercher un chemin qui effectue un cycle ? (O/N): ").upper()
+cycle = input("Voulez-vous chercher un chemin qui effectue un cycle ? (O/N): ").upper()
 while cycle!="O" and cycle!="N":
     print("Caractère inconnu")
-    depart = input("Voulez vous chercher un chemin qui effectue un cycle ? (O/N): ").upper()
+    cycle = input("Voulez-vous chercher un chemin qui effectue un cycle ? (O/N): ").upper()
 #on met la case de depart comme visitee
 coords_depart = monGraphe.existe(depart)
 x, y = coords_depart
