@@ -35,6 +35,7 @@ class Graphe:
     
     def estValide(self, x : int, y : int)->bool:
         #renvoie si la case de coordones (x,y) a ete visite (true si non visitee; false sinon)
+        #la gestion de la sortie de plateau est géré dans entities.Plateau.bouger
         return not(self.sommets[x][y].estVisite)
 
     
@@ -43,7 +44,7 @@ class Graphe:
         #creation de notre piece cavalier
         piece= entities.Piece(0,0, constantes.knight)
         #creation de notre plateau
-        pl=entities.Plateau(len(self.sommets),len(self.sommets),piece)
+        pl=entities.Plateau(piece)
         for y in range(len(self.sommets)):
             for x in range(len(self.sommets)):
                 pl.piece.position.x = x

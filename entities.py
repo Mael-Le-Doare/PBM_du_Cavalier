@@ -28,23 +28,16 @@ class Position: #c'est la classe qui gère la position
         return self.x,self.y
 
 class Plateau: #c'est la classe pour le plateau
-    vide = 0
 
-    def __init__(self, x, y, piece):
-        self.matrice = [[self.vide for j in range(x)] for i in range(y)]
+    def __init__(self, piece):
         self.piece = piece
         
-    def affichage(self):
-        for ligne in self.matrice:
-            print(ligne)
-        self.piece.affichage()
-
     def bouger(self):
         liste = []
         for move in self.piece.movement():
             if move.x >=0 and move.x <= constantes.board-1 \
-                and move.y >=0 and move.y <= constantes.board-1 \
-                and move.getMat(self.matrice) == 0:
+                    and move.y >=0 and move.y <= constantes.board-1 :
+
                 liste.append(move)
         return liste
             
